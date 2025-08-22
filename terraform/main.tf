@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "site" {
-  bucket = "${var.project_name}-site-${random_id.suffix.hex}"
+  bucket        = "${var.project_name}-site-${random_id.suffix.hex}"
   force_destroy = true
 }
 
