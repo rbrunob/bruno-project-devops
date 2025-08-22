@@ -1,0 +1,6 @@
+{
+  "env": { "commonjs": true, "node": true, "es2022": true, "jest": true },
+  "extends": ["standard"],
+  "parserOptions": { "ecmaVersion": 2022 },
+  "rules": { }
+}

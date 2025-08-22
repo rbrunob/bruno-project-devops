@@ -1,0 +1,40 @@
+name: CI – DevOps Bruno
+
+on:
+  push:
+    branches: ["main", "feat/**"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test -- --ci --reporters=default --reporters=junit --outputFile=junit.xml
+
+      - name: Build (sanity)
+        run: npm run build || echo "No build step required"
+
+      - name: Terraform fmt & validate
+        working-directory: ./terraform
+        run: |
+          terraform --version
+          terraform fmt -check -recursive
+          terraform init -backend=false
+          terraform validate
