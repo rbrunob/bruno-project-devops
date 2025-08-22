@@ -26,7 +26,7 @@ jobs:
         run: npm run lint
 
       - name: Test
-        run: npm test -- --ci --reporters=default --reporters=junit --outputFile=junit.xml
+        run: npm test -- --ci --reporters=default --reporters=jest-junit
 
       - name: Build (sanity)
         run: npm run build || echo "No build step required"
